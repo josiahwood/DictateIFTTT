@@ -62,8 +62,8 @@
 			
 		    $('.submit').click(function() {
 		    	var settings = {
-		    		eventName: eventName,
-		    		makerKey: makerKey
+		    		KEY_EVENT_NAME: eventName,
+		    		KEY_MAKER_KEY: makerKey
 		    	}
 		    	
 		    	var location = "pebblejs://close#" + encodeURIComponent(JSON.stringify(settings));

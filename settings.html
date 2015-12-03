@@ -1,0 +1,75 @@
+<html>
+<head>
+	<title>Settings</title>
+	<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+	
+	<!-- HEADER -->
+
+	<h4 style="margin-left:25px; padding-bottom:10px">DictateIFTTT Settings:</h4>
+	
+	<!-- TABLE -->
+	<table>
+		<tr>
+			<td><p style="padding-top:0px; padding-left:25px; vertical-align:middle; display:table-cell;">Event Name: </p></td>
+			<td><input type='text' id="eventName" style="width:100px; margin-left:20px;"></input></td>
+		</tr>
+		<tr>
+			<td><p style="padding-top:0px; padding-left:25px; vertical-align:middle; display:table-cell;">Maker Key: </p></td>
+			<td><input type='text' id="makerKey" style="width:100px; margin-left:20px;"></input></td>
+		</tr>
+	</table>
+	
+	<p style="text-align:center;">
+		<button type='button' class="submit btn btn-success" style="width:100px; margin-top:20px;">Submit</button>
+	</p>
+	
+	<!-- SCRIPTS -->
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script type="text/javascript">
+		$().ready(function() {
+			window.applicationCache.addEventListener('updateready', onUpdateReady);
+			function onUpdateReady() {
+				if(window.applicationCache.status === window.applicationCache.UPDATEREADY) {
+  					window.location.reload();
+  				}
+			}
+			
+			var eventName;
+			
+			try {
+				eventName = JSON.parse(localStorage["eventName"]);
+			}
+			catch(e) {
+				eventName = "push";
+			}
+			
+			$("#eventName").val(eventName);
+			
+			var makerKey;
+			
+			try {
+				makerKey = JSON.parse(localStorage["makerKey"]);
+			}
+			catch(e) {
+				makerKey = "test";
+			}
+			
+			$("#makerKey").val(makerKey);
+			
+		    $('.submit').click(function() {
+		    	var settings = {
+		    		eventName: eventName,
+		    		makerKey: makerKey
+		    	}
+		    	
+		    	var location = "pebblejs://close#" + encodeURIComponent(JSON.stringify(settings));
+				window.location.href = location;
+		    });
+		});
+	</script>
+</body>
+</html>
